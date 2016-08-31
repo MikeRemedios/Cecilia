@@ -6,6 +6,7 @@ import os
 import subprocess
 import datetime
 import re
+import random
 
 
 class generic:
@@ -14,6 +15,7 @@ class generic:
     def __init__(self, bot):
         self.bot = bot
         self.startTime = time.time()
+        random.seed()
 
     @commands.command()
     async def about(self):
@@ -57,7 +59,7 @@ class generic:
         print(os.popen(r'ping {}'.format('discord.gg')).read().strip())
         m = re.search(re.compile('Minimum = [0-9]+ms, Maximum = [0-9]+ms, Average = [0-9]+ms'),
                       os.popen(r'ping {}'.format('discord.gg')).read().strip())
-        await self.bot.say(m.group(0))
+        await self.bot.say('#TODO')
 
     @commands.command()
     async def uptime(self):
@@ -68,9 +70,15 @@ class generic:
         await self.bot.say("%d:%02d:%02d" % (h, m, s))
 
     @commands.command()
-    async def pm(self):
-        "-PMs me"
-        await self.bot.send_message()
+    async def roll(self, size=6):
+        "-Rolls a die, default d6"
+        val = random.randint(1, size);
+        additional = ''
+        if val == size:
+            additional = "You're a god!"
+        elif val == 1:
+            additional = "Must suck to be you."
+        await self.bot.reply('you rolled {0} on a d{1}. {2}'.format(val, size, additional))
 
 
 def setup(bot):

@@ -10,7 +10,14 @@ import re
 import cogs.generic
 
 description = """
-Cecilia.
+I am Cecilia, bot by Mike Remedios using discord.py.
+Command examples:
+    c.mywaifu
+    C.roll 20
+    cecilia.about
+    Cecilia.featureRequest "SUPER COOL REQUEST!"
+Features I want to add: Currency system based on bot usage and messages sent probably.
+Have fun!
 """
 
 initial_extensions = [
