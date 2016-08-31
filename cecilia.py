@@ -10,13 +10,18 @@ import re
 import cogs.generic
 
 description = """
-I am Cecilia, bot by Mike Remedios using discord.py.
+I am Cecilia, bot by Mike Remedios (@Rem#1962) using discord.py.
+
 Command examples:
     c.mywaifu
     C.roll 20
     cecilia.about
     Cecilia.featureRequest "SUPER COOL REQUEST!"
-Features I want to add: Currency system based on bot usage and messages sent probably.
+
+Features I want to add:
+    Currency system based on bot usage and messages sent probably.
+    Macros
+
 Have fun!
 """
 
@@ -75,6 +80,14 @@ async def on_message(message):
         await bot.send_message(message.channel, 'lmao')
 
     await bot.process_commands(message)
+
+
+@bot.event
+async def on_member_join(member):
+    channels = member.server.channels
+    for c in channels:
+        if c.type is discord.ChannelType.text and c.position == 0:
+            await bot.send_message(c, 'Welcome {0} to the server!'.format(member.mention))
 
 
 if __name__ == '__main__':

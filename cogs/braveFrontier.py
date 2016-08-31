@@ -56,7 +56,7 @@ class braveFrontier:
         waifu = re.search('http://vignette\d\.wikia\.nocookie\.net/bravefrontierglobal/.+full.+\.png',
                           str(data)).group(0)
 
-        await self.bot.reply('Your new waifu is ***{0}!***\n{1}'.format(name, waifu))
+        await self.bot.reply(' your new waifu is ***{0}!***\n{1}'.format(name, waifu))
 
 
 def setup(bot):
