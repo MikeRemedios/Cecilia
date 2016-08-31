@@ -36,7 +36,7 @@ class generic:
         await self.bot.say("www.gimmedatcash.com")
 
     @commands.command()
-    async def featureRequest(self, feature="placeholder"):
+    async def featureRequest(self, feature):
         "-Logs a feature request, request MUST be enclosed in quotes \"Example request\""
         try:
             f = open('requests.txt', 'a')
@@ -72,13 +72,16 @@ class generic:
     @commands.command()
     async def roll(self, size=6):
         "-Rolls a die, default d6"
-        val = random.randint(1, size);
-        additional = ''
-        if val == size:
-            additional = "You're a god!"
-        elif val == 1:
-            additional = "Must suck to be you."
-        await self.bot.reply('you rolled {0} on a d{1}. {2}'.format(val, size, additional))
+        if size < 2:
+            await self.bot.say('Not a valid die, dummy.')
+        else:
+            val = random.randint(1, size);
+            additional = ''
+            if val == size:
+                additional = "You're a god!"
+            elif val == 1:
+                additional = "Must suck to be you."
+            await self.bot.reply('you rolled {0} on a d{1}. {2}'.format(val, size, additional))
 
 
 def setup(bot):

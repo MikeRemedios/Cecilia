@@ -61,6 +61,22 @@ async def on_command(command, ctx):
 
 
 @bot.event
+async def on_command_error(error, ctx):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await bot.send_message(ctx.message.channel, 'MissingRequiredArgument Exception')
+    elif isinstance(error, commands.BadArgument):
+        await bot.send_message(ctx.message.channel, 'BadArgument Exception')
+    elif isinstance(error, commands.DisabledCommand):
+        await bot.send_message(ctx.message.channel, "That command is disabled.")
+    elif isinstance(error, commands.CommandNotFound):
+        await bot.send_message(ctx.message.channel, 'Not a valid command! Type c.help for list of commands.')
+    elif isinstance(error, commands.CheckFailure):
+        pass
+    else:
+        log.exception(type(error).__name__, exc_info=error)
+
+
+@bot.event
 async def on_resumed():
     print('resumed...')
 
@@ -78,8 +94,11 @@ async def on_message(message):
         await bot.send_message(message.channel, 'cool cool cool')
     if re.search('ayy', message.content, re.IGNORECASE):
         await bot.send_message(message.channel, 'lmao')
+    try:
+        await bot.process_commands(message)
+    except commands.CommandNotFound:
+        await bot.send_message(message.channel, 'Not a valid command! Type c.help for list of commands.')
 
-    await bot.process_commands(message)
 
 
 @bot.event
